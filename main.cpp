@@ -10,7 +10,7 @@ enum class FLAGS_NUM:BYTE{
     ZERO,//<-- last compare flag
     INT_DIS//<-- interrupt disable flag
 };
-char * FLAGS_NAME[] = {
+char const* FLAGS_NAME[] = {
     "OVERFLOW",
     "CARRY",
     "BZERO",
@@ -44,7 +44,19 @@ struct Registers{
             FLAGS[x] = 0;
         }
     }
-
+    //to be implemented ...
+    DBYTE getBytes(std::string&& reg){
+        getBytes(reg);
+    }
+    DBYTE getBytes(std::string& str){
+        DBYTE reg;
+        if(str == "pc")return pc;
+        if(str =="ip") return ip;
+        if(str == "sp") return sp;
+        if(str =="ax") return ax;
+        if(str=="bx") return bx;
+        if (str =="cx") return cx;
+    }
     DBYTE& operator[](std::string&& str){
         return (*this)[str];
         
@@ -105,10 +117,13 @@ struct Registers{
         this->operator[](reg1);
         DBYTE temp = (*this)[reg1];
         auto& r1 =  (*this)[reg1] ;
+
         r1 += (*this)[reg2];
         cmp(reg1,reg2);
-        // auto & r2 = (*this)[reg2];
-        // r2 = temp;
+
+        if(std::int64_t(r1)> 32767|| std::int64_t(r1) <-32767){//<--- does not work...
+            FLAGS[uint(FLAGS_NUM::OVERFLOW)] = 1;
+        }
     }
 };
 std::ostream& operator<<(std::ostream& os, Registers registe){
@@ -119,17 +134,17 @@ std::ostream& operator<<(std::ostream& os, Registers registe){
     os<<"bx:"<<registe.bx<<"\n";
     os<<"cx:"<<registe.cx<<"\n";
     for(int x = 0; x< uint(FLAGS_NUM::INT_DIS)+1; x++){
-    os<<FLAGS_NAME[x]<<":"<<std::to_string(registe.FLAGS[x])<<"\n";
+        os<<FLAGS_NAME[x]<<":"<<std::to_string(registe.FLAGS[x])<<"\n";
     }
-
+    return os;
 }
 //overload indexing operator to take in string, this might help out alot for getting registers because strings tokens, once i finish the tokenizer, 
 //could be directly passed to this
 
 int main(){
     Registers registers;
-    registers.mov("ax", "10");
-    registers.add("ax","4000000");
+    registers.mov("ax", "1");
+    registers.add("ax","225");
     std::cout<<registers;
 }
 
