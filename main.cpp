@@ -10,7 +10,14 @@ enum class FLAGS_NUM:BYTE{
     ZERO,//<-- last compare flag
     INT_DIS//<-- interrupt disable flag
 };
-
+char * FLAGS_NAME[] = {
+        "OVERFLOW",
+    "CARRY",
+    "BZERO",
+    "LZERO",
+    "ZERO",//<-- last compare flag
+    "INT_DIS"//<-- interrupt disable flag
+};
 struct Registers{
     //system
     DBYTE pc = 0;//next expected op code!
@@ -62,11 +69,24 @@ struct Registers{
     }
     
 };
+std::ostream& operator<<(std::ostream& os, Registers registe){
+    os<<"pc:"<<registe.pc<<"\n";
+    os<<"ip:"<<registe.ip<<"\n";
+    os<<"sp:"<<registe.sp<<"\n";
+    os<<"ax:"<<registe.ax<<"\n";
+    os<<"bx:"<<registe.bx<<"\n";
+    os<<"cx:"<<registe.cx<<"\n";
+    for(int x = 0; x< uint(FLAGS_NUM::INT_DIS)+1; x++){
+    os<<FLAGS_NAME[x]<<"\n";
+    }
+
+}
 //overload indexing operator to take in string, this might help out alot for getting registers because strings tokens, once i finish the tokenizer, 
 //could be directly passed to this
 
 int main(){
     Registers registers;
     registers.mov("ax", "10");
+    std::cout<<registers;
 }
 
