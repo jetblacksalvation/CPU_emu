@@ -1,6 +1,8 @@
+LL = Registers/Register.cpp
+
 
 run:
-	g++ main.cpp 
+	g++ main.cpp ${LL}
 	./a.out
 clean:
 	rm -f a.out
