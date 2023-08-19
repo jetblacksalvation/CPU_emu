@@ -1,6 +1,4 @@
-LL = Registers/Register.cpp
-
-
+LL = Registers/Register.cpp Lexer/Tokenzier.cpp
 run:
 	g++ main.cpp ${LL}
 	./a.out

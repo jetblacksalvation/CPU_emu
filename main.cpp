@@ -1,6 +1,24 @@
 #include "Registers/Register.hpp"
+#include "Lexer/Tokenizer.hpp"
 //overload indexing operator to take in string, this might help out alot for getting registers because strings tokens, once i finish the tokenizer, 
 //could be directly passed to this
+
+std::ostream& operator<<(std::ostream& os, Registers registe);
+int main(){
+    
+    auto code = tokenize("mov ax,1 ");
+
+    for (auto c : code){
+        std::cout<<c;
+    }
+
+    Registers registers;
+    registers.mov("ax", "1");
+    registers.add("ax","225");
+    // std::cout<<registers;
+}
+
+
 std::ostream& operator<<(std::ostream& os, Registers registe){
     os<<"pc:"<<registe.pc<<"\n";
     os<<"ip:"<<registe.ip<<"\n";
@@ -13,10 +31,3 @@ std::ostream& operator<<(std::ostream& os, Registers registe){
     }
     return os;
 }
-int main(){
-    Registers registers;
-    registers.mov("ax", "1");
-    registers.add("ax","225");
-    std::cout<<registers;
-}
-
