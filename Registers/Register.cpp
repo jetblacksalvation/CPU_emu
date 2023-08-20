@@ -2,6 +2,51 @@
 
 
 //system
+void Registers::evaluateTokens(std::vector<std::string> tokens){
+    if(tokens[0] == "mov"){
+        //expect tokens[0] = 'mov'  nxt 'regsiter' nxt == ',' nxt 'value' or 'register'
+        if(tokens[2] == ","){
+            mov(tokens[1], tokens[3]);
+        }
+    }
+    if(tokens[0] == "cmp"){
+        if(tokens[2] == ","){
+            cmp(tokens[1], tokens[3]);
+        }    
+    }
+    if(tokens[0] == "preg"){
+        //print register
+        std::cout<<(char)(*this)[tokens[1]];
+    }
+    if(tokens[0] == "print"){
+        std::cout<<"pc:"<<pc<<"\n";
+        std::cout<<"ip:"<<ip<<"\n";
+        std::cout<<"sp:"<<sp<<"\n";
+        std::cout<<"ax:"<<ax<<"\n";
+        std::cout<<"bx:"<<bx<<"\n";
+        std::cout<<"cx:"<<cx<<"\n";
+        for(int x = 0; x< uint(FLAGS_NUM::INT_DIS)+1; x++){
+            std::cout<<FLAGS_NAME[x]<<":"<<std::to_string(FLAGS[x])<<"\n";
+        }
+    }
+    if(tokens[1] == ":" && tokens.size() ==2){
+        labelHash.insert_or_assign(tokens[0], ip);
+        //lable creation...
+        //make lable hash table...
+    }
+    if(tokens[0] == "jmp" && tokens.size() ==2){
+        if (labelHash.find(tokens[1]) != labelHash.end()){
+            ip = (*labelHash.find(tokens[1])).second;
+        }
+
+    }
+    if(tokens[0] == "jz"&& tokens.size() ==2){
+
+        if (labelHash.find(tokens[1]) != labelHash.end()&& FLAGS[uint(FLAGS_NUM::ZERO)]){
+            ip = (*labelHash.find(tokens[1])).second;
+        }
+    }
+};
 
 Registers::Registers(){
     clearFlags();

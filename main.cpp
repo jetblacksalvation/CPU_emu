@@ -13,7 +13,7 @@ int main(int argc, char* vargs[]){
     Registers registers;
     for (DBYTE& ip =registers.ip; ip <code.size(); ip++){
         //add evaluate code here...
-        
+        registers.evaluateTokens(code[ip]);
         // for(auto str : code[ip]){//working so far...
         //     std::cout<<str;
         // }
@@ -21,8 +21,7 @@ int main(int argc, char* vargs[]){
         //change ip depending on evaluate...
     }
 
-    registers.mov("ax", "1");
-    registers.add("ax","225");
+
     // std::cout<<registers;
 }
 

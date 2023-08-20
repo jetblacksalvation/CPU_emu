@@ -1,1 +1,4 @@
-mov ax, 1
+test:
+mov ax, 33
+preg ax
+jmp test

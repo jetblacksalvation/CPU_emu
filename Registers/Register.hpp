@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <unordered_map>
 typedef std::int8_t BYTE;
 typedef std::int16_t DBYTE;
 enum class FLAGS_NUM:BYTE{
@@ -29,6 +31,8 @@ struct Registers{
 
     DBYTE tReg = 0;// return the string casted to int when string is not a register...
     BYTE FLAGS[uint(FLAGS_NUM::INT_DIS)+1];//<-- setting flag equal to length of largest enum value...    
+
+    std::unordered_map<std::string, DBYTE> labelHash;
     Registers();
     void clearFlags();
     void clearCmpFlags();
@@ -42,4 +46,6 @@ struct Registers{
     void cmp(std::string& reg1, std::string& reg2);
     void add(std::string&& reg1, std::string&& reg2);
     void add(std::string& reg1, std::string& reg2);
+
+    void evaluateTokens(std::vector<std::string>);
 };
