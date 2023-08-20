@@ -21,7 +21,7 @@ int main(int argc, char* vargs[]){
         //change ip depending on evaluate...
     }
 
-    registers.mov("ax", "1");
+    // registers.mov("ax", "1");
     registers.add("ax","225");
     // std::cout<<registers;
 }

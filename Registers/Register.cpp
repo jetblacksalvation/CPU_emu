@@ -2,8 +2,40 @@
 
 
 //system
+void Registers::mov(std::initializer_list<std::string> regs){
+    auto reg2 = *(regs.begin()+1);
+    auto reg1 = (*regs.begin());
+    //if register is not found in "hash" -> evaluates input, so this works on non register values like numbers
+    //will eventually make it work with ascii characters and string evaluation 
+    DBYTE temp = (*this)[reg2];
+    auto& r1 =  (*this)[reg1] ;
+    r1= (*this)[reg2];
+}
+void Registers::cmp(std::initializer_list<std::string> regs){
+    auto r1 = *(regs.begin());
+    auto r2 = *(regs.begin() + 1);
+    auto result = (*this)[r1] - (*this)[r2];
+    clearCmpFlags();
+    if(result <0){
+        FLAGS[uint(FLAGS_NUM::LZERO)] = 1;
+    }
+    if(result ==0){
+        FLAGS[uint(FLAGS_NUM::ZERO)] = 1;
+    }
+    if(result >0){
+        FLAGS[uint(FLAGS_NUM::BZERO)] = 1;
 
+    }
+}
 Registers::Registers(){
+    // std::function<void(Registers&, std::initializer_list<DBYTE>)>(mov);
+    // auto temp = Registers::mov;
+    // std::function<void(Registers& ,std::initializer_list<std::string>)> f =temp;
+
+    // std::function<void(std::initializer_list<std::string>)>(&Registers::mov);
+    mnemonicHash.insert({"mov",&Registers::mov});
+    mnemonicHash.insert({"cmp",&Registers::cmp});
+
     clearFlags();
 }
 
@@ -30,7 +62,8 @@ DBYTE& Registers::getBytes(std::string& str){
     if(str =="ax") return ax;
     if(str=="bx") return bx;
     if (str =="cx") return cx;
-
+    // add evaluation code here 
+    
     return reg;
 }
 DBYTE& Registers::operator[](std::string&& str){
@@ -51,38 +84,7 @@ DBYTE& Registers::operator[](std::string& str){
     //... AST will switch to different function when declaring memory ... or maybe continue to use this?
     //not sure if it's legal to do" times 10 db pc "or something ...
 }
-void Registers::mov(std::string&& reg1, std::string&& reg2){
 
-    mov(reg1,reg2);
-    // auto & r2 = (*this)[reg2];
-    // r2 = temp;
-}
-void Registers::mov(std::string&reg1, std::string&reg2){
-
-    this->operator[](reg1);
-    DBYTE temp = (*this)[reg1];
-    auto& r1 =  (*this)[reg1] ;
-    r1= (*this)[reg2];
-    // auto & r2 = (*this)[reg2];
-    // r2 = temp;
-}
-void Registers::cmp(std::string&& reg1, std::string&& reg2){
-    cmp(reg1,reg2);
-};
-void Registers::cmp(std::string& reg1, std::string& reg2){
-    auto result = (*this)[reg1]-(*this)[reg2];
-    clearCmpFlags();
-    if(result <0){
-        FLAGS[uint(FLAGS_NUM::LZERO)] = 1;
-    }
-    if(result ==0){
-        FLAGS[uint(FLAGS_NUM::ZERO)] = 1;
-    }
-    if(result >0){
-        FLAGS[uint(FLAGS_NUM::BZERO)] = 1;
-
-    }
-};
 void Registers::add(std::string&& reg1, std::string&& reg2){
     add(reg1,reg2);
     // r2 = temp;
@@ -95,7 +97,6 @@ void Registers::add(std::string& reg1, std::string& reg2){
     auto& r1 =  (*this)[reg1] ;
 
     r1 += (*this)[reg2];
-    cmp(reg1,reg2);
 
     if(std::int64_t(r1)> 32767|| std::int64_t(r1) <-32767){//<--- does not work...
         FLAGS[uint(FLAGS_NUM::OVERFLOW)] = 1;

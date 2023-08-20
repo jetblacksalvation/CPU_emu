@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <map>
+
+#include <functional>
 typedef std::int8_t BYTE;
 typedef std::int16_t DBYTE;
 enum class FLAGS_NUM:BYTE{
@@ -19,6 +22,8 @@ static char const* FLAGS_NAME[] = {
     "INT_DIS"//<-- interrupt disable flag
 };
 struct Registers{
+    std::map<std::string, std::function<void(Registers& ,std::initializer_list<std::string>)>> mnemonicHash;
+
     DBYTE pc = 0;//next expected op code!
     DBYTE ip = 0;//instruction pointer
     DBYTE sp = 0;//stack pointer!
@@ -36,10 +41,11 @@ struct Registers{
     DBYTE& getBytes(std::string& reg);
     DBYTE& operator[](std::string&& str);
     DBYTE& operator[](std::string& str);
-    void mov(std::string&& reg1, std::string&& reg2);
-    void mov(std::string&reg1, std::string&reg2);
-    void cmp(std::string&& reg1, std::string&& reg2);
-    void cmp(std::string& reg1, std::string& reg2);
+    // void mov(std::string&& reg1, std::string&& reg2);
+    // void mov(std::string&reg1, std::string&reg2);
+    void mov(std::initializer_list<std::string>);
+    void cmp(std::initializer_list<std::string> regs);
+
     void add(std::string&& reg1, std::string&& reg2);
     void add(std::string& reg1, std::string& reg2);
 };
