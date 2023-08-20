@@ -4,15 +4,20 @@
 //could be directly passed to this
 
 std::ostream& operator<<(std::ostream& os, Registers registe);
-int main(){
-    
-    auto code = tokenize("mov ax,1 ");
 
-    for (auto c : code){
-        std::cout<<c;
+
+int main(int argc, char* vargs[]){
+    std::fstream fileInput;
+    fileInput.open(vargs[1]);
+    auto code = getCode(fileInput);
+    Registers registers;
+
+    for (DBYTE& ip =registers.ip; ip <code.size(); ip++){
+        //add evaluate code here...
+
+        //change ip depending on evaluate...
     }
 
-    Registers registers;
     registers.mov("ax", "1");
     registers.add("ax","225");
     // std::cout<<registers;

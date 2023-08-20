@@ -1,5 +1,7 @@
 #include "Tokenizer.hpp"
 #include <iostream>
+typedef std::int8_t BYTE;
+typedef std::int16_t DBYTE;
 std::vector<std::string> tokenize(std::string string){
 
     std::vector<std::string> tokens;
@@ -33,3 +35,11 @@ std::vector<std::string> tokenize(std::string string){
     return tokens;
     //accumilate string if char is not in seperateTokensBy and is alphanumeric aka visable ...
 }
+std::vector<std::vector<std::string>>  getCode(std::fstream& stream){
+    std::string line;
+    std::vector<std::vector<std::string>> code;
+    while (std::getline(stream, line)) {
+        code.push_back(tokenize(line));
+    }
+    
+};
