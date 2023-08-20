@@ -11,10 +11,13 @@ int main(int argc, char* vargs[]){
     fileInput.open(vargs[1]);
     auto code = getCode(fileInput);
     Registers registers;
-
     for (DBYTE& ip =registers.ip; ip <code.size(); ip++){
         //add evaluate code here...
-
+        
+        // for(auto str : code[ip]){//working so far...
+        //     std::cout<<str;
+        // }
+        // std::cout<<'\n';
         //change ip depending on evaluate...
     }
 

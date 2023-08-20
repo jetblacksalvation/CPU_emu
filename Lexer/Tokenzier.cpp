@@ -39,7 +39,7 @@ std::vector<std::vector<std::string>>  getCode(std::fstream& stream){
     std::string line;
     std::vector<std::vector<std::string>> code;
     while (std::getline(stream, line)) {
-        code.push_back(tokenize(line));
+        code.push_back(tokenize(line+' '));
     }
-    
+    return code;
 };
