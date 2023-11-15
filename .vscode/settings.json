@@ -46,7 +46,11 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "fstream": "cpp",
-    "xstring": "cpp"
+    "xstring": "cpp",
+    "xhash": "cpp",
+    "format": "cpp",
+    "list": "cpp",
+    "xutility": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

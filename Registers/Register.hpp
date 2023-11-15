@@ -1,17 +1,7 @@
 #pragma once
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <cstdint>
-#include <string>
-typedef int8_t BYTE;
-typedef int16_t DBYTE;
-#ifdef OVERFLOW
-#undef OVERFLOW
-#endif
-#ifndef uint
-typedef uint8_t uint;
-#endif
+#include "../Common/common.hpp"
+
+
 enum class FLAGS_NUM:BYTE{
     OVERFLOW,
     CARRY,

@@ -38,11 +38,17 @@ void Registers::evaluateTokens(std::vector<std::string> tokens){
         if (labelHash.find(tokens[1]) != labelHash.end()){
             ip = (*labelHash.find(tokens[1])).second;
         }
+        else{
+            if( !tokens[1].empty() && std::all_of(tokens[1].begin(), tokens[1].end(), ::isdigit)){
+                ip = std::stoi(tokens[1]);
+                
+            }
+        }
 
     }
     if(tokens[0] == "jz"&& tokens.size() ==2){
 
-        if (labelHash.find(tokens[1]) != labelHash.end()&& FLAGS[uint(FLAGS_NUM::ZERO)]){
+        if (labelHash.find(tokens[1]) != labelHash.end() && FLAGS[uint(FLAGS_NUM::ZERO)]){
             ip = (*labelHash.find(tokens[1])).second;
         }
     }
