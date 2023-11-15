@@ -1,7 +1,6 @@
 #include "Tokenizer.hpp"
-#include <iostream>
-typedef std::int8_t BYTE;
-typedef std::int16_t DBYTE;
+typedef int8_t BYTE;
+typedef int16_t DBYTE;
 std::vector<std::string> tokenize(std::string string){
 
     std::vector<std::string> tokens;

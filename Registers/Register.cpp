@@ -142,7 +142,7 @@ void Registers::add(std::string& reg1, std::string& reg2){
     r1 += (*this)[reg2];
     cmp(reg1,reg2);
 
-    if(std::int64_t(r1)> 32767|| std::int64_t(r1) <-32767){//<--- does not work...
+    if(int64_t(r1)> 32767|| int64_t(r1) <-32767){//<--- does not work...
         FLAGS[uint(FLAGS_NUM::OVERFLOW)] = 1;
     }
 }

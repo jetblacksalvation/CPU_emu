@@ -3,7 +3,7 @@
 //overload indexing operator to take in string, this might help out alot for getting registers because strings tokens, once i finish the tokenizer, 
 //could be directly passed to this
 
-std::ostream& operator<<(std::ostream& os, Registers registe);
+std::ostream& operator<<(std::ostream& os, Registers _register);
 
 
 int main(int argc, char* vargs[]){
@@ -26,15 +26,15 @@ int main(int argc, char* vargs[]){
 }
 
 
-std::ostream& operator<<(std::ostream& os, Registers registe){
-    os<<"pc:"<<registe.pc<<"\n";
-    os<<"ip:"<<registe.ip<<"\n";
-    os<<"sp:"<<registe.sp<<"\n";
-    os<<"ax:"<<registe.ax<<"\n";
-    os<<"bx:"<<registe.bx<<"\n";
-    os<<"cx:"<<registe.cx<<"\n";
+std::ostream& operator<<(std::ostream& os, Registers _register){
+    os<<"pc:"<<_register.pc<<"\n";
+    os<<"ip:"<<_register.ip<<"\n";
+    os<<"sp:"<<_register.sp<<"\n";
+    os<<"ax:"<<_register.ax<<"\n";
+    os<<"bx:"<<_register.bx<<"\n";
+    os<<"cx:"<<_register.cx<<"\n";
     for(int x = 0; x< uint(FLAGS_NUM::INT_DIS)+1; x++){
-        os<<FLAGS_NAME[x]<<":"<<std::to_string(registe.FLAGS[x])<<"\n";
+        os<<FLAGS_NAME[x]<<":"<<std::to_string(_register.FLAGS[x])<<"\n";
     }
     return os;
 }
