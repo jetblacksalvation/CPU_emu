@@ -1,5 +1,8 @@
 #include "Register.hpp"
-
+/*
+    figure out recursive descent
+    
+*/
 
 //system
 void Registers::evaluateTokens(std::vector<std::string> tokens){
@@ -41,7 +44,7 @@ void Registers::evaluateTokens(std::vector<std::string> tokens){
         else{
             if( !tokens[1].empty() && std::all_of(tokens[1].begin(), tokens[1].end(), ::isdigit)){
                 ip = std::stoi(tokens[1]);
-                
+
             }
         }
 
